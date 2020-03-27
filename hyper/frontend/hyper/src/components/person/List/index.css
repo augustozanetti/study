@@ -1,0 +1,31 @@
+li.person-item {
+    background: #FFF;
+    box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.02);
+    border-radius: 2px;
+    padding: 20px;
+  }
+  
+  li.person-item header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  li.person-item header img {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+  }
+  
+  
+  li.person-item p {
+    color: #666;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 10px 0;
+  }
+
+.footer {
+  display: flex;
+  flex-direction: row-reverse;
+}

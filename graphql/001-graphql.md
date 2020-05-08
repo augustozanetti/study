@@ -12,7 +12,7 @@
 
 ## O que é GraphQL
 
-É um novo padrão de API que oferece maior flexibilidade, eficiencia e poder comparado ao REST. Foi desenvolvido pelo facebook e atualmente mantido pela comunidade.
+É um novo padrão(especificação) de API que oferece maior flexibilidade, eficiencia e poder comparado ao REST. Foi desenvolvido pelo facebook e atualmente mantido pela comunidade.
 
 Permite que o `client` obtenha os dados necessários de uma forma declarativa.
 
@@ -109,6 +109,7 @@ Diminuindo drasticamente o excesso de busca no servidor.
 ## SDL
 
 - #### Definindo tipos
+  - Três tipos de entrada existentes em GraphQL: Query(Consulta), Mutation(Manipulação de dados, create, update, delete) e Subscription(Listener para futuros eventos).
   - ! Indica que é um campo obrigatório.
   - Person 1 -> N Post
 
@@ -119,8 +120,42 @@ type Post {
 }
 
 type Person {
+    id: ID!
     name: String!
     age: Int!
     posts: [Post!]!
 }
+
+type Query {
+    allPersons(last: Int): [Person!]
+    allPosts(last: Int): [Post!]
+}
+
+type Mutation {
+    createPerson(name: String!, age: String!): Person!
+    updatePerson(id: ID!, name: String!, age: string!): Person!
+    deletePerson(id: ID!): Person!
+}
+
+type Subscription {
+    newPerson: Person!
+}
+
 ```
+
+references:
+
+- [GraphQL Server Basics: GraphQL Schemas, TypeDefs & Resolvers Explained](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e)
+- [GraphQL Server Basics: The Network Layer](https://www.prisma.io/blog/graphql-server-basics-the-network-layer-51d97d21861)
+- [GraphQL Server Basics: Demystifying the info Argument in GraphQL Resolvers](https://www.prisma.io/blog/graphql-server-basics-demystifying-the-info-argument-in-graphql-resolvers-6f26249f613a)
+
+## RESOLVER
+
+Cada campo possui um resolver que nada mais é do que uma função que tem um único objetivo: buscar/montar os dados para o campo correspondente.
+
+Recebe quatro argumentos:
+
+- `obj` O objeto anterior, para o campo RAIZ geralemnte não é utilizado.
+- `args` Argumentos fornecidos para o campo na consulta.
+- `context` Um valor fornecido a todos os `resolvers` e mantém informações de context importantes, como usuário conectado, acesso a banco...
+- `info` Detalhes de `schema` e informações específicas de campo.

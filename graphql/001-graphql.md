@@ -112,14 +112,31 @@ Diminuindo drasticamente o excesso de busca no servidor.
   - Três tipos de entrada existentes em GraphQL: Query(Consulta), Mutation(Manipulação de dados, create, update, delete) e Subscription(Listener para futuros eventos).
   - ! Indica que é um campo obrigatório.
   - Person 1 -> N Post
+  - Enum(possui um conjunto fixo de valores)
+  - Interface
 
 ```
-type Post {
+enum Weekday {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+interface Node {
+  id: ID!
+}
+
+type Post implements Node {
+    id: ID!
     title: String!
     author: Person! --relation
 }
 
-type Person {
+type Person implements Node {
     id: ID!
     name: String!
     age: Int!
@@ -159,3 +176,59 @@ Recebe quatro argumentos:
 - `args` Argumentos fornecidos para o campo na consulta.
 - `context` Um valor fornecido a todos os `resolvers` e mantém informações de context importantes, como usuário conectado, acesso a banco...
 - `info` Detalhes de `schema` e informações específicas de campo.
+
+## FRAGMENTS
+
+É uma coleção de campos em um tipo específico, ex:
+
+```
+type User {
+    name: String!
+    age: Int!
+    email: String!
+    street: String!
+    zipcode: String!
+    city: String!
+}
+
+Todas informações relacionadas com o endereço do usuário
+fragment addressDetails on User {
+  name
+  street
+  zipcode
+  city
+}
+
+Podemos usar dessa forma:
+{
+  allUsers {
+    ... addressDetails
+  }
+}
+o que substitui isso:
+{
+  allUsers {
+    name
+    street
+    zipcode
+    city
+  }
+}
+
+```
+
+## ALIAS
+
+Podemos utiliar um alias para realizar a mesma consulta duas vez em uma unica
+requisição: first, second.
+
+```
+{
+  first: User(id: "1") {
+    name
+  }
+  second: User(id: "2") {
+    name
+  }
+}
+```

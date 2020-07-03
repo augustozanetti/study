@@ -17,6 +17,6 @@ services:
     build: ./services/calculate
     environment:
       - ASPNETCORE_INTEREST_API_URL=http://interest:80/api/taxajuros
-      - ASPNETCORE_GITHUB_URL=BLABLA
+      - ASPNETCORE_GITHUB_URL=https://github.com/augustozanetti/study/tree/master/soft-api
     ports:
       - '5002:80'

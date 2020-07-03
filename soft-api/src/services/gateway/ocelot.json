@@ -1,0 +1,67 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/taxajuros",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "interest",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/taxajuros",
+      "UpstreamHttpMethod": ["Get"],
+      "SwaggerKey": "interest"
+    },
+    {
+      "DownstreamPathTemplate": "/api/calculajuros?valorinicial={valorinicial}&meses={meses}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "calculate",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/calculajuros?valorinicial={valorinicial}&meses={meses}",
+      "UpstreamHttpMethod": ["Get"],
+      "SwaggerKey": "calculate"
+    },
+    {
+      "DownstreamPathTemplate": "/api/showmethecode",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "calculate",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/showmethecode",
+      "UpstreamHttpMethod": ["Get"],
+      "SwaggerKey": "calculate"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "interest",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Interest rate API",
+          "Version": "v1",
+          "Url": "http://interest:80/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "calculate",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Calculate API",
+          "Version": "v1",
+          "Url": "http://calculate:80/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+}

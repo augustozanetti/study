@@ -1,6 +1,6 @@
-Para executar esse projeto é necessário o docker e docker-compose
+# Para executar esse projeto é necessário o docker e docker-compose
 
-Iniciar o servidor
+## Iniciar o servidor
 
 - docker-compose up
 - acesso a documentação: localhost:5000/swagger
